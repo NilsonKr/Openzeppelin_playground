@@ -4,13 +4,13 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol";
+import "@openzeppelin/contracts/security/Pausable.sol";
 
 contract Extensions is
     ERC20("NKT", "NilsonKr Token"),
     Ownable,
     ERC20Burnable,
-    ERC20Pausable
+    Pausable
 {
     constructor(uint256 initialSupply) {
         _mint(msg.sender, initialSupply);
@@ -40,11 +40,12 @@ contract Extensions is
         _unpause();
     }
 
+    //Controlled by paused flag
     function _beforeTokenTransfer(
         address from,
         address to,
         uint256 amount
-    ) internal override(ERC20, ERC20Pausable) whenNotPaused {
+    ) internal override whenNotPaused {
         super._beforeTokenTransfer(from, to, amount);
     }
 }
