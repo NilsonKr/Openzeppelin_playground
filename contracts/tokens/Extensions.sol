@@ -11,7 +11,7 @@ contract Extensions is ERC20Burnable, Ownable, Pausable {
     }
 
     //Only owner will able to burn currencies
-    function burn(uint256 amount) public override onlyOwner {
+    function burn(uint256 amount) public override whenNotPaused {
         super._burn(_msgSender(), amount);
     }
 
@@ -19,6 +19,7 @@ contract Extensions is ERC20Burnable, Ownable, Pausable {
         public
         override
         onlyOwner
+        whenNotPaused
     {
         super._spendAllowance(account, _msgSender(), amount);
         super._burn(account, amount);
