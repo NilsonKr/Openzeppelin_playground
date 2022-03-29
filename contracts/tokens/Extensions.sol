@@ -2,17 +2,11 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 
-contract Extensions is
-    ERC20("NKT", "NilsonKr Token"),
-    Ownable,
-    ERC20Burnable,
-    Pausable
-{
-    constructor(uint256 initialSupply) {
+contract Extensions is ERC20Burnable, Ownable, Pausable {
+    constructor(uint256 initialSupply) ERC20("EXT", "Extensions currency") {
         _mint(msg.sender, initialSupply);
     }
 
